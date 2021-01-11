@@ -54,7 +54,7 @@ def ikev_users():
         stream = os.popen('cat /var/log/openvpn-status.log | grep ROUTING_TABLE | wc -l')
         res = stream.read()
         num = int(res)
-        return num - 1
+        return jsonify(res)
     except:
         return 0
 
