@@ -51,18 +51,12 @@ def system_information():
 # @require_appkey
 def ikev_users():
     try:
-        stream = os.popen('/usr/sbin/strongswan leases | head -n 1')
+        stream = os.popen('cat /var/log/openvpn-status.log | grep ROUTING_TABLE | wc -l')
         res = stream.read()
-        arr = res.split(",")[1:]
-        data = {
-            'total':  int(arr[0][arr[0].find("/")-1]),
-            'online': int(arr[1].strip()[:1])
-        }
-        return jsonify(data)
+        num = int(res)
+        reurn num - 1
     except:
-        stream = os.popen('/usr/sbin/strongswan leases | head -n 1')
-        res = stream.read()
-        return res
+        return 0
 
 
 def bytes_to_GB(bytes):
